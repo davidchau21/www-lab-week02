@@ -32,13 +32,14 @@ public class Employee {
     @Column(nullable = false)
     private EmpoyeeStatus status;
 
-    @OneToMany
+    @OneToMany(mappedBy = "employee")
     private List<Order> listOrder;
 
     public Employee() {
     }
 
-    public Employee(long id, String fullname, Date dod, String email, String phone, String address, EmpoyeeStatus status) {
+    public Employee(long id, String fullname, Date dod, String email, String phone, String address,
+            EmpoyeeStatus status) {
         this.id = id;
         this.fullname = fullname;
         this.dod = dod;
@@ -119,8 +120,10 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Employee employee = (Employee) o;
         return id == employee.id;
     }
