@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "employees")
+@NamedQueries({
+        @NamedQuery(name = "Employee.findAll", query = "select e from Employee e"),
+        @NamedQuery(name = "Employee.findById", query = "select e from Employee e where e.id=:id")
+})
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
