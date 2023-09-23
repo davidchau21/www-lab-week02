@@ -18,10 +18,6 @@ public class EmployeeServices {
         employeeRespository.insertEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee) {
-        employeeRespository.updateEmployee(employee);
-    }
-
     public boolean delete(long id) {
         Optional<Employee> op = employeeRespository.findById(id);
         if (op.isPresent()) {
@@ -43,7 +39,7 @@ public class EmployeeServices {
     }
 
     public List<Employee> getAll() {
-        return employeeRespository.getAllEmployee();
+        return employeeRespository.getAll();
     }
 
     public Optional<Employee> findById(long id) {

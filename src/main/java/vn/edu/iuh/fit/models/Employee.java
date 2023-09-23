@@ -16,22 +16,22 @@ import java.util.Objects;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "emp_id")
+    @Column(name = "emp_id", columnDefinition = "bigint(20)")
     private long id;
 
-    @Column(name = "full_name", length = 150, nullable = false)
+    @Column(name = "full_name", columnDefinition = "varchar(150)")
     private String fullname;
 
-    @Column(nullable = false)
+    @Column(name = "dob", nullable = false)
     private Date dod;
 
-    @Column(unique = true, length = 150)
+    @Column(name = "email", columnDefinition = "varchar(150)", unique = true)
     private String email;
 
-    @Column(length = 15, nullable = false)
+    @Column(name = "phone", columnDefinition = "varchar(15)", nullable = false)
     private String phone;
 
-    @Column(length = 120, nullable = false)
+    @Column(name = "address", columnDefinition = "varchar(250)", nullable = false)
     private String address;
 
     @Column(nullable = false)
@@ -46,6 +46,15 @@ public class Employee {
     public Employee(long id, String fullname, Date dod, String email, String phone, String address,
             EmpoyeeStatus status) {
         this.id = id;
+        this.fullname = fullname;
+        this.dod = dod;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+    }
+
+    public Employee(String fullname, Date dod, String email, String phone, String address, EmpoyeeStatus status) {
         this.fullname = fullname;
         this.dod = dod;
         this.email = email;
