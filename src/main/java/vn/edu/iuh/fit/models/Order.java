@@ -2,26 +2,36 @@ package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id", nullable = false)
-    private long id;
+    @Column(name = "order_id")
+    private Long id;
 
-    @Column(name = "order_date", nullable = false)
-    private Date orderDate;
+    @Column(name = "order_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime orderDate;
 
     @ManyToOne
-    @Column(name = "emp_id", length = 150, nullable = false)
+    @JoinColumn(name = "emp_id")
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "cust_id", nullable = false)
+    @JoinColumn(name = "cust_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "order")
@@ -30,14 +40,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(long id, Date orderDate, Employee employee, Customer customer) {
-        this.id = id;
+    public Order(LocalDateTime orderDate, Employee employee, Customer customer) {
         this.orderDate = orderDate;
         this.employee = employee;
         this.customer = customer;
     }
 
-    public Order(Date orderDate, Employee employee, Customer customer) {
+    public Order(long id, LocalDateTime orderDate, Employee employee, Customer customer) {
+        this.id = id;
         this.orderDate = orderDate;
         this.employee = employee;
         this.customer = customer;
@@ -49,8 +59,9 @@ public class Order {
             return true;
         if (!(o instanceof Order))
             return false;
-        Order orders = (Order) o;
-        return Objects.equals(employee, orders.employee) && Objects.equals(customer, orders.customer);
+        Order order = (Order) o;
+        return Objects.equals(employee, order.employee) && Objects.equals(customer, order.customer);
+
     }
 
     @Override
@@ -66,11 +77,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -92,8 +103,12 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order [id=" + id + ", orderDate=" + orderDate + ", employee=" + employee + ", customer=" + customer
-                + "]";
+        return "Orders{" +
+                "id=" + id +
+                ", orderDate=" + orderDate +
+                ", employee=" + employee +
+                ", customer=" + customer +
+                '}';
     }
 
 }

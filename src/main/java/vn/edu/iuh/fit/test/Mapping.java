@@ -12,7 +12,6 @@ public class Mapping {
         try {
             tr.commit();
         } catch (Exception e) {
-            // TODO: handle exception
             tr.rollback();
         }
 

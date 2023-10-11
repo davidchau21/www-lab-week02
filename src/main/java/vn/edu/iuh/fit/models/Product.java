@@ -2,41 +2,36 @@ package vn.edu.iuh.fit.models;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import vn.edu.iuh.fit.enums.ProductStatus;
 
 @Entity
 @Table(name = "products")
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
-    private long productId;
 
-    @Column(name = "name", columnDefinition = "varchar(150)")
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(columnDefinition = "varchar(150)")
     private String name;
 
     @Column(name = "description", columnDefinition = "varchar(250)")
     private String description;
 
-    @Column(name = "unit", columnDefinition = "varchar(50)")
+    @Column(columnDefinition = "varchar(25)")
     private String unit;
 
     @Column(name = "manufacturer_name", columnDefinition = "varchar(100)")
-    private String manufacturer_name;
+    private String manufacturer;
 
-    @Column(name = "status", columnDefinition = "int")
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "int")
     private ProductStatus status;
 
     // RELATIONSHIP
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -48,30 +43,29 @@ public class Product {
     public Product() {
     }
 
-    public Product(long productId, String name, String description, String unit, String manufacturer_name,
-            ProductStatus status) {
-        this.productId = productId;
+    public Product(long id, String name, String description, String unit, String manufacturer, ProductStatus status) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.unit = unit;
-        this.manufacturer_name = manufacturer_name;
+        this.manufacturer = manufacturer;
         this.status = status;
     }
 
-    public Product(String name, String description, String unit, String manufacturer_name, ProductStatus status) {
+    public Product(String name, String description, String unit, String manufacturer, ProductStatus status) {
         this.name = name;
         this.description = description;
         this.unit = unit;
-        this.manufacturer_name = manufacturer_name;
+        this.manufacturer = manufacturer;
         this.status = status;
     }
 
-    public long getProductId() {
-        return productId;
+    public long getId() {
+        return id;
     }
 
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -98,12 +92,12 @@ public class Product {
         this.unit = unit;
     }
 
-    public String getManufacturer_name() {
-        return manufacturer_name;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacturer_name(String manufacturer_name) {
-        this.manufacturer_name = manufacturer_name;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public ProductStatus getStatus() {
@@ -116,8 +110,14 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [productId=" + productId + ", name=" + name + ", description=" + description + ", unit=" + unit
-                + ", manufacturer_name=" + manufacturer_name + ", status=" + status + "]";
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", unit='" + unit + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", status=" + status +
+                '}';
     }
 
 }

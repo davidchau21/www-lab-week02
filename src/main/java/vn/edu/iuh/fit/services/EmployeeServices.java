@@ -3,7 +3,7 @@ package vn.edu.iuh.fit.services;
 import java.util.List;
 import java.util.Optional;
 
-import vn.edu.iuh.fit.enums.EmpoyeeStatus;
+import vn.edu.iuh.fit.enums.EmployeeStatus;
 import vn.edu.iuh.fit.models.Employee;
 import vn.edu.iuh.fit.repositories.EmployeeRespository;
 
@@ -22,7 +22,7 @@ public class EmployeeServices {
         Optional<Employee> op = employeeRespository.findById(id);
         if (op.isPresent()) {
             Employee employee = op.get();
-            employee.setStatus(EmpoyeeStatus.IN_ACTIVE);
+            employee.setStatus(EmployeeStatus.IN_ACTIVE);
             return true;
         }
         return false;
@@ -32,7 +32,7 @@ public class EmployeeServices {
         Optional<Employee> op = employeeRespository.findById(id);
         if (op.isPresent()) {
             Employee employee = op.get();
-            employee.setStatus(EmpoyeeStatus.ACTIVE);
+            employee.setStatus(EmployeeStatus.ACTIVE);
             return true;
         }
         return false;

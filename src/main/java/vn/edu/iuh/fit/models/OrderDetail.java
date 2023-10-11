@@ -5,28 +5,31 @@ import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "order_detail")
 public class OrderDetail {
+    @Column(name = "quantity", columnDefinition = "double")
+    private Double quantity;
+
+    @Column(name = "price", columnDefinition = "double")
+    private Double price;
+
+    @Column(name = "note", columnDefinition = "varchar(250)")
+    private String note;
+
     @Id
     @ManyToOne
-    @Column(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Id
-    @Column(name = "product_id", nullable = false)
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
-
-    @Column(nullable = false)
-    private long quantity;
-
-    @Column(nullable = false)
-    private long price;
-
-    @Column(nullable = false)
-    private String note;
 
     public OrderDetail() {
     }
@@ -36,10 +39,35 @@ public class OrderDetail {
         this.product = product;
     }
 
-    public OrderDetail(Product product, long quantity, long price, String note) {
-        this.product = product;
+    public OrderDetail(Double quantity, Double price, String note, Order order, Product product) {
         this.quantity = quantity;
         this.price = price;
+        this.note = note;
+        this.order = order;
+        this.product = product;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
         this.note = note;
     }
 
@@ -59,34 +87,15 @@ public class OrderDetail {
         this.product = product;
     }
 
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     @Override
     public String toString() {
-        return "OrderDetail [order=" + order + ", product=" + product + ", quantity=" + quantity + ", price=" + price
-                + ", note=" + note + "]";
+        return "OrderDetail{" +
+                "quantity=" + quantity +
+                ", price=" + price +
+                ", note='" + note + '\'' +
+                ", orders=" + order +
+                ", product=" + product +
+                '}';
     }
 
     @Override

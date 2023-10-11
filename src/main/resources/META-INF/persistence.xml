@@ -6,7 +6,7 @@
     <persistence-unit name="lab_week_2">
         <class>vn.edu.iuh.fit.models.Employee</class>
         <class>vn.edu.iuh.fit.models.Customer</class>
-        <class>vn.edu.iuh.fit.models.Orders</class>
+        <class>vn.edu.iuh.fit.models.Order</class>
         <class>vn.edu.iuh.fit.models.Product</class>
         <class>vn.edu.iuh.fit.models.ProductPrice</class>
         <class>vn.edu.iuh.fit.models.ProductImage</class>
@@ -19,8 +19,8 @@
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="sapassword" />
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-            <!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+<!--            <property name="hibernate.hbm2ddl.auto" value="create-drop" />-->
+             <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>

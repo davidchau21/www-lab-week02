@@ -1,11 +1,17 @@
 package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
-import vn.edu.iuh.fit.enums.EmpoyeeStatus;
+import vn.edu.iuh.fit.enums.EmployeeStatus;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity
 @Table(name = "employees")
@@ -17,25 +23,29 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id", columnDefinition = "bigint(20)")
-    private long id;
+    private Long id;
 
-    @Column(name = "full_name", columnDefinition = "varchar(150)")
-    private String fullname;
-
-    @Column(name = "dob", nullable = false)
-    private Date dod;
-
-    @Column(name = "email", columnDefinition = "varchar(150)", unique = true)
-    private String email;
-
-    @Column(name = "phone", columnDefinition = "varchar(15)", nullable = false)
-    private String phone;
-
-    @Column(name = "address", columnDefinition = "varchar(250)", nullable = false)
+    @Column(name = "address", columnDefinition = "varchar(250)")
     private String address;
 
-    @Column(nullable = false)
-    private EmpoyeeStatus status;
+    @Column(name = "dob")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime dob;
+
+    @Column(name = "email", columnDefinition = "varchar(150)")
+    private String email;
+
+    @Column(name = "full_name", columnDefinition = "varchar(150)")
+    private String fullName;
+
+    @Column(name = "phone", columnDefinition = "varchar(15)")
+    private String phone;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "int")
+    private EmployeeStatus status;
 
     @OneToMany(mappedBy = "employee")
     private List<Order> listOrder;
@@ -43,64 +53,33 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String fullname, Date dod, String email, String phone, String address,
-            EmpoyeeStatus status) {
+    public Employee(Long id, String address, LocalDateTime dob, String email, String fullName, String phone,
+            EmployeeStatus status) {
         this.id = id;
-        this.fullname = fullname;
-        this.dod = dod;
-        this.email = email;
-        this.phone = phone;
         this.address = address;
+        this.dob = dob;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
         this.status = status;
     }
 
-    public Employee(String fullname, Date dod, String email, String phone, String address, EmpoyeeStatus status) {
-        this.fullname = fullname;
-        this.dod = dod;
-        this.email = email;
-        this.phone = phone;
+    public Employee(String address, LocalDateTime dob, String email, String fullName, String phone,
+            EmployeeStatus status) {
         this.address = address;
+        this.dob = dob;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
         this.status = status;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public Date getDod() {
-        return dod;
-    }
-
-    public void setDod(Date dod) {
-        this.dod = dod;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getAddress() {
@@ -111,11 +90,43 @@ public class Employee {
         this.address = address;
     }
 
-    public EmpoyeeStatus getStatus() {
+    public LocalDateTime getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDateTime dob) {
+        this.dob = dob;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public EmployeeStatus getStatus() {
         return status;
     }
 
-    public void setStatus(EmpoyeeStatus status) {
+    public void setStatus(EmployeeStatus status) {
         this.status = status;
     }
 
@@ -123,27 +134,12 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", fullname='" + fullname + '\'' +
-                ", dod=" + dod +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", dob=" + dob +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
                 ", status=" + status +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Employee employee = (Employee) o;
-        return id == employee.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

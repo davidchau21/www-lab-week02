@@ -1,13 +1,13 @@
 package vn.edu.iuh.fit.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
-import vn.edu.iuh.fit.enums.EmpoyeeStatus;
+import vn.edu.iuh.fit.enums.EmployeeStatus;
 import vn.edu.iuh.fit.models.Employee;
 
 public class EmployeeRespository {
@@ -50,7 +50,7 @@ public class EmployeeRespository {
     }
 
     // set status employee
-    public void setStatusEmployee(Employee employee, EmpoyeeStatus status) {
+    public void setStatusEmployee(Employee employee, EmployeeStatus status) {
         employee.setStatus(status);
     }
 
@@ -65,6 +65,80 @@ public class EmployeeRespository {
         query.setParameter("id", id);
         Employee emp = query.getSingleResult();
         return emp == null ? Optional.empty() : Optional.of(emp);
+    }
+
+    public Employee searchById(long id) {
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+
+            Employee employee = em.find(Employee.class, id);
+
+            tr.commit();
+            return employee;
+        } catch (Exception e) {
+            tr.rollback();
+        }
+        return null;
+    }
+
+    public boolean updateField(long id, String nameField, String newValue) {
+        EntityTransaction tr = em.getTransaction();
+        Employee employee = searchById(id);
+        if (employee == null)
+            return false;
+        try {
+            tr.begin();
+            switch (nameField) {
+                case "address":
+                    employee.setAddress(newValue);
+                    break;
+                case "dob":
+                    LocalDateTime dateTime = LocalDateTime.parse(newValue);
+                    employee.setDob(dateTime);
+                    break;
+                case "email":
+                    employee.setEmail(newValue);
+                    break;
+                case "full_name":
+                    employee.setFullName(newValue);
+                    break;
+                case "phone":
+                    employee.setPhone(newValue);
+                    break;
+                case "status":
+                    if (newValue.equals("-1")) {
+                        employee.setStatus(EmployeeStatus.TEMINATED);
+                    } else if (newValue.equals("0")) {
+                        employee.setStatus(EmployeeStatus.IN_ACTIVE);
+                    } else
+                        employee.setStatus(EmployeeStatus.ACTIVE);
+                    break;
+            }
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+        }
+        return false;
+    }
+
+    public boolean del(long id) {
+        EntityTransaction tr = em.getTransaction();
+        Employee employee = searchById(id);
+        if (employee == null)
+            return false;
+        try {
+            tr.begin();
+
+            employee.setStatus(EmployeeStatus.TEMINATED);
+
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+        }
+        return false;
     }
 
 }
