@@ -2,16 +2,16 @@ package vn.edu.iuh.fit.backend.services;
 
 import jakarta.inject.Inject;
 import vn.edu.iuh.fit.backend.models.ProductPrice;
-import vn.edu.iuh.fit.backend.repositories.ProductPriceResponsitory;
+import vn.edu.iuh.fit.backend.repositories.ProductPriceRepository;
 
 import java.util.List;
 
 public class ProductPriceService {
     @Inject
-    private ProductPriceResponsitory dao;
+    private ProductPriceRepository dao;
 
     @Inject
-    public ProductPriceService(ProductPriceResponsitory productPriceDao) {
+    public ProductPriceService(ProductPriceRepository productPriceDao) {
         this.dao = productPriceDao;
     }
 

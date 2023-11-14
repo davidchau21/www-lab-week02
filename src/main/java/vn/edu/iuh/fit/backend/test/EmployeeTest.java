@@ -1,10 +1,10 @@
 package vn.edu.iuh.fit.backend.test;
 
-import vn.edu.iuh.fit.backend.repositories.EmployeeRespository;
+import vn.edu.iuh.fit.backend.repositories.EmployeeRepository;
 
 public class EmployeeTest {
     public static void main(String[] args) {
-        EmployeeRespository employeeRespository = new EmployeeRespository();
+        EmployeeRepository employeeRespository = new EmployeeRepository();
         System.out.println(employeeRespository.getAll());
 
     }

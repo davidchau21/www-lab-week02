@@ -2,16 +2,16 @@ package vn.edu.iuh.fit.backend.services;
 
 import jakarta.inject.Inject;
 import vn.edu.iuh.fit.backend.models.ProductImage;
-import vn.edu.iuh.fit.backend.repositories.ProductImageResponsitory;
+import vn.edu.iuh.fit.backend.repositories.ProductImageRepository;
 
 import java.util.List;
 
 public class ProductImageService {
     @Inject
-    private ProductImageResponsitory dao;
+    private ProductImageRepository dao;
 
     @Inject
-    public ProductImageService(ProductImageResponsitory productImageDao) {
+    public ProductImageService(ProductImageRepository productImageDao) {
         this.dao = productImageDao;
     }
 

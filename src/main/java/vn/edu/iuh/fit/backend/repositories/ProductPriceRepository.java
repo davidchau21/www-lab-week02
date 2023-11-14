@@ -8,11 +8,11 @@ import vn.edu.iuh.fit.backend.models.ProductPrice;
 
 import java.util.List;
 
-public class ProductPriceResponsitory {
+public class ProductPriceRepository {
     private EntityManager em;
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public ProductPriceResponsitory() {
+    public ProductPriceRepository() {
         em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 

@@ -8,13 +8,13 @@ import vn.edu.iuh.fit.backend.models.ProductImage;
 
 import java.util.List;
 
-public class ProductImageResponsitory {
+public class ProductImageRepository {
 
     private EntityManager em = null;
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-    private ProductResponsitory productDao = new ProductResponsitory();
+    private ProductRepository productDao = new ProductRepository();
 
-    public ProductImageResponsitory() {
+    public ProductImageRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 

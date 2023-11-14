@@ -3,21 +3,21 @@ package vn.edu.iuh.fit.backend.services;
 import jakarta.inject.Inject;
 import vn.edu.iuh.fit.backend.enums.ProductStatus;
 import vn.edu.iuh.fit.backend.models.Product;
-import vn.edu.iuh.fit.backend.repositories.ProductResponsitory;
+import vn.edu.iuh.fit.backend.repositories.ProductRepository;
 
 import java.util.List;
 
 public class ProductServices {
     @Inject
-    private ProductResponsitory dao;
+    private ProductRepository dao;
 
     @Inject
-    public ProductServices(ProductResponsitory productResponsitory) {
+    public ProductServices(ProductRepository productResponsitory) {
         this.dao = productResponsitory;
     }
 
     public ProductServices() {
-        dao= new ProductResponsitory();
+        dao= new ProductRepository();
     }
     public List<Product> getAll() {
         return dao.getAll();
@@ -41,6 +41,10 @@ public class ProductServices {
 
     public boolean del(long id) {
         return dao.del(id);
+    }
+
+    public List<Product>getActiveProducts(){
+        return dao.getActiveProduct();
     }
 
     public void updateStatus(long id, ProductStatus status) {

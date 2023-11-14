@@ -10,13 +10,13 @@ import vn.edu.iuh.fit.backend.models.Order;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderResponsitory {
+public class OrderRepository {
     private EntityManager em = null;
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-    private CustomerRespository customerDao = new CustomerRespository();
-    private EmployeeRespository employeeDao = new EmployeeRespository();
+    private CustomerRepository customerDao = new CustomerRepository();
+    private EmployeeRepository employeeDao = new EmployeeRepository();
 
-    public OrderResponsitory() {
+    public OrderRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 

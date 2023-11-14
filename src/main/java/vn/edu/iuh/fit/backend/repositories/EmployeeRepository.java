@@ -10,10 +10,10 @@ import jakarta.persistence.TypedQuery;
 import vn.edu.iuh.fit.backend.enums.EmployeeStatus;
 import vn.edu.iuh.fit.backend.models.Employee;
 
-public class EmployeeRespository {
+public class EmployeeRepository {
     private EntityManager em = null;
 
-    public EmployeeRespository() {
+    public EmployeeRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
 
     }

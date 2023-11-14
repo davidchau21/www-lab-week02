@@ -1,11 +1,17 @@
 package vn.edu.iuh.fit.backend.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.backend.enums.ProductStatus;
 
 @Entity
+@NamedQueries(value = {
+        @NamedQuery(name = "Product.findAll", query = "select p from Product p where p.status = ?1"),
+        @NamedQuery(name = "Product.findById", query = "select p from Product p where p.product_id = ?1")
+        //,...1
+})
 @Table(name = "products")
 public class Product {
 
@@ -32,13 +38,13 @@ public class Product {
 
     // RELATIONSHIP
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImage> productImages;
+    private List<ProductImage> productImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductPrice> productPrices;
+    private List<ProductPrice> productPrices = new ArrayList<>();
 
     public Product() {
     }
@@ -58,6 +64,10 @@ public class Product {
         this.unit = unit;
         this.manufacturer = manufacturer;
         this.status = status;
+    }
+
+    public List<ProductImage> getProductImageList() {
+        return productImages;
     }
 
     public long getId() {

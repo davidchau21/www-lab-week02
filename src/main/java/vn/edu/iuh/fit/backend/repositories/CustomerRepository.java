@@ -6,10 +6,10 @@ import vn.edu.iuh.fit.backend.models.Customer;
 
 import java.util.List;
 
-public class CustomerRespository {
+public class CustomerRepository {
     private EntityManager em = null;
 
-    public CustomerRespository() {
+    public CustomerRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 

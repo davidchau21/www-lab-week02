@@ -10,12 +10,12 @@ import vn.edu.iuh.fit.backend.models.Product;
 
 import java.util.List;
 
-public class ProductResponsitory {
+public class ProductRepository {
 
     private EntityManager em = null;
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public ProductResponsitory() {
+    public ProductRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 
@@ -162,5 +162,11 @@ public class ProductResponsitory {
             tr.rollback();
             logger.error(e.getMessage());
         }
+    }
+
+    public List<Product> getActiveProduct(){
+        return em.createNamedQuery("Product.findAll",Product.class)
+                .setParameter(1, ProductStatus.ACTIVE)
+                .getResultList();
     }
 }

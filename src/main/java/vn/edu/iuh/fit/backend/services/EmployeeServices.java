@@ -5,13 +5,13 @@ import java.util.Optional;
 
 import vn.edu.iuh.fit.backend.enums.EmployeeStatus;
 import vn.edu.iuh.fit.backend.models.Employee;
-import vn.edu.iuh.fit.backend.repositories.EmployeeRespository;
+import vn.edu.iuh.fit.backend.repositories.EmployeeRepository;
 
 public class EmployeeServices {
-    private EmployeeRespository employeeRespository;
+    private EmployeeRepository employeeRespository;
 
     public EmployeeServices() {
-        employeeRespository = new EmployeeRespository();
+        employeeRespository = new EmployeeRepository();
     }
 
     public void insertEmployee(Employee employee) {

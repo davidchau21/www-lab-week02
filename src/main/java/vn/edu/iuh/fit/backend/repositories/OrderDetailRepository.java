@@ -9,12 +9,12 @@ import vn.edu.iuh.fit.backend.models.OrderDetail;
 
 import java.util.List;
 
-public class OrderDetailResponsitory {
+public class OrderDetailRepository {
     private EntityManager em;
-    private ProductPriceResponsitory productPriceDao = new ProductPriceResponsitory();
+    private ProductPriceRepository productPriceDao = new ProductPriceRepository();
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public OrderDetailResponsitory() {
+    public OrderDetailRepository() {
         em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 

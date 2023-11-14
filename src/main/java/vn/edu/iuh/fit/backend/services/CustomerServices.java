@@ -2,17 +2,17 @@ package vn.edu.iuh.fit.backend.services;
 
 import jakarta.inject.Inject;
 import vn.edu.iuh.fit.backend.models.Customer;
-import vn.edu.iuh.fit.backend.repositories.CustomerRespository;
+import vn.edu.iuh.fit.backend.repositories.CustomerRepository;
 
 import java.util.List;
 
 public class CustomerServices {
     @Inject
-    private CustomerRespository dao;
+    private CustomerRepository dao;
 
     @Inject
     public CustomerServices() {
-        CustomerRespository customerRespository = new CustomerRespository();
+        CustomerRepository customerRespository = new CustomerRepository();
         this.dao = customerRespository;
     }
 

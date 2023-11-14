@@ -1,17 +1,17 @@
 package vn.edu.iuh.fit.backend.services;
 
 import jakarta.inject.Inject;
-import vn.edu.iuh.fit.backend.repositories.OrderResponsitory;
+import vn.edu.iuh.fit.backend.repositories.OrderRepository;
 import vn.edu.iuh.fit.backend.models.Order;
 
 import java.util.List;
 
 public class OrdersServices {
     @Inject
-    private OrderResponsitory dao;
+    private OrderRepository dao;
 
     @Inject
-    public OrdersServices(OrderResponsitory orderDao) {
+    public OrdersServices(OrderRepository orderDao) {
         this.dao = orderDao;
     }
 
