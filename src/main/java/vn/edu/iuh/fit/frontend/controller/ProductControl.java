@@ -1,7 +1,7 @@
-package vn.edu.iuh.fit.backend.controller;
+package vn.edu.iuh.fit.frontend.controller;
 
 import vn.edu.iuh.fit.backend.enums.ProductStatus;
-import vn.edu.iuh.fit.backend.mod.ProductModel;
+
 import vn.edu.iuh.fit.backend.models.Product;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.iuh.fit.frontend.model.ProductModel;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 

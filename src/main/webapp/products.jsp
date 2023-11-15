@@ -1,12 +1,6 @@
 <%@ page import="vn.edu.iuh.fit.backend.services.ProductServices" %>
 <%@ page import="vn.edu.iuh.fit.backend.models.Product" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Student
-  Date: 9/23/2023
-  Time: 1:39 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

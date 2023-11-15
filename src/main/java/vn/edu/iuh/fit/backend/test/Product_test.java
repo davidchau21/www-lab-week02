@@ -1,6 +1,6 @@
 package vn.edu.iuh.fit.backend.test;
 
-import vn.edu.iuh.fit.backend.mod.ProductModel;
+import vn.edu.iuh.fit.frontend.model.ProductModel;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

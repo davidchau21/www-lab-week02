@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.backend.controller;
+package vn.edu.iuh.fit.frontend.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
