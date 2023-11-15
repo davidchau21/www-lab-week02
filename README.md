@@ -17,7 +17,7 @@
 <details>
   <summary><h3>👇 Back end</h3> </summary>
   
-  # BACK-END
+  ## BACK-END
   > GET
   > POST
   > PUT
@@ -28,7 +28,7 @@
 <details>
   <summary><h3>👇 Front end </h3> </summary>
   
-  # FRONT-END 
+  ## FRONT-END 
 - Tạo giao diện trang web bán hàng. <br>
 - Sử dụng: `Servlet Jakarta EE` <br>
 - Mô tả:<br>
