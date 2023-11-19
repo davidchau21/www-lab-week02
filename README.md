@@ -23,8 +23,7 @@
   > PUT
   > DELETE
 
-
-
+</details>
 <details>
   <summary><h3>👇 Front end </h3> </summary>
   
