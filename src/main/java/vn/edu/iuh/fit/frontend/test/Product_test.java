@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.backend.test;
+package vn.edu.iuh.fit.frontend.test;
 
 import vn.edu.iuh.fit.frontend.model.ProductModel;
 

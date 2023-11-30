@@ -15,7 +15,7 @@ public class LoginController extends HttpServlet {
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
 
-        if (name.equals("admin") && pass.equals("admin")) {
+        if (name.equals("admin") && pass.equals("123")) {
             response.sendRedirect("index.jsp");
         } else {
             response.sendRedirect("login.jsp");

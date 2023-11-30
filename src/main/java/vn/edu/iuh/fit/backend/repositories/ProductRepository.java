@@ -25,7 +25,7 @@ public class ProductRepository {
             tr.begin();
 
             List<Product> list = em
-                    .createNativeQuery("SELECT * from product where status = 2 OR status = 1 ORDER BY name",
+                    .createNativeQuery("SELECT * from products",
                             Product.class)
                     .getResultList();
 
@@ -91,42 +91,64 @@ public class ProductRepository {
         return false;
     }
 
-    public boolean updateField(long id, String nameField, String newValue) {
+//    public boolean updateField(long id, String nameField, String newValue) {
+//        EntityTransaction tr = em.getTransaction();
+//        Product product = searchById(id);
+//        if (product == null)
+//            return false;
+//        try {
+//            tr.begin();
+//            switch (nameField) {
+//                case "name":
+//                    product.setName(newValue);
+//                    break;
+//                case "description":
+//                    product.setDescription(newValue);
+//                    break;
+//                case "unit":
+//                    product.setUnit(newValue);
+//                    break;
+//                case "manufacturer":
+//                    product.setManufacturer(newValue);
+//                    break;
+//                case "status":
+//                    if (newValue.equals("-1")) {
+//                        product.setStatus(ProductStatus.TEMINATED);
+//                    } else if (newValue.equals("0")) {
+//                        product.setStatus(ProductStatus.IN_ACTIVE);
+//                    } else
+//                        product.setStatus(ProductStatus.ACTIVE);
+//                    break;
+//            }
+//            tr.commit();
+//            return true;
+//        } catch (Exception e) {
+//            logger.info(e.getMessage());
+//            tr.rollback();
+//        }
+//        return false;
+//    }
+
+    public boolean updateField(long id, Product updatedProduct) {
         EntityTransaction tr = em.getTransaction();
-        Product product = searchById(id);
-        if (product == null)
-            return false;
         try {
             tr.begin();
-            switch (nameField) {
-                case "name":
-                    product.setName(newValue);
-                    break;
-                case "description":
-                    product.setDescription(newValue);
-                    break;
-                case "unit":
-                    product.setUnit(newValue);
-                    break;
-                case "manufacturer":
-                    product.setManufacturer(newValue);
-                    break;
-                case "status":
-                    if (newValue.equals("-1")) {
-                        product.setStatus(ProductStatus.TEMINATED);
-                    } else if (newValue.equals("0")) {
-                        product.setStatus(ProductStatus.IN_ACTIVE);
-                    } else
-                        product.setStatus(ProductStatus.ACTIVE);
-                    break;
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                // Update the fields of the existing product with the new values
+                product.setName(updatedProduct.getName());
+                product.setDescription(updatedProduct.getDescription());
+                product.setUnit(updatedProduct.getUnit());
+                product.setManufacturer(updatedProduct.getManufacturer());
+                product.setStatus(updatedProduct.getStatus());
             }
             tr.commit();
             return true;
         } catch (Exception e) {
             logger.info(e.getMessage());
             tr.rollback();
+            return false;
         }
-        return false;
     }
 
     public boolean del(long id) {
@@ -137,7 +159,7 @@ public class ProductRepository {
         try {
             tr.begin();
 
-            product.setStatus(ProductStatus.TEMINATED);
+            em.remove(product);
 
             tr.commit();
             return true;

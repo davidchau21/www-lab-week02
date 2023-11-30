@@ -14,8 +14,8 @@ public class EmployeeServices {
         employeeRespository = new EmployeeRepository();
     }
 
-    public void insertEmployee(Employee employee) {
-        employeeRespository.insertEmployee(employee);
+    public boolean insertEmployee(Employee employee) {
+        return employeeRespository.add(employee);
     }
 
     public boolean delete(long id) {
@@ -45,5 +45,17 @@ public class EmployeeServices {
     public Optional<Employee> findById(long id) {
         return employeeRespository.findById(id);
     }
+
+    public List<Employee> getFromXToY(int x, int y){
+        return employeeRespository.getFromXToY(x,y);
+    };
+
+    public boolean updateField(long id, String nameField, String newValue){
+        return employeeRespository.updateField(id,nameField,newValue);
+    }
+    public boolean del(long id){
+        return employeeRespository.del(id);
+    }
+
 
 }

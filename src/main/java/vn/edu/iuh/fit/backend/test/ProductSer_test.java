@@ -12,7 +12,7 @@ public class ProductSer_test {
 //                "ok", "100%", "kg", "ok", ProductStatus.IN_ACTIVE));
 //        System.out.println(add);
 
-         Product product = productServices.searchById(100);
+         Product product = productServices.searchById(1);
          System.out.println(product);
 
     }

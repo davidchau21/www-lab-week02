@@ -32,8 +32,8 @@ public class CustomerServices {
         return dao.add(customer);
     }
 
-    public boolean updateField(long id, String nameField, String newValue) {
-        return dao.updateField(id, nameField, newValue);
+    public boolean updateField(long id,Customer customer) {
+        return dao.updateField(id, customer);
     }
 
     public boolean del(long id) {

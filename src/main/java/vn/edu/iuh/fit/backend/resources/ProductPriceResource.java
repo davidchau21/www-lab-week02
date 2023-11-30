@@ -79,18 +79,18 @@ public class ProductPriceResource {
         return Response.ok(temp).build();
     }
 
-    // @PUT()
-    // @Path("/{id}")
-    // @Consumes(MediaType.APPLICATION_JSON)
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public Response update(@PathParam("id") long id, ProductPrice productPrice) {
-    // ProductPrice temp = productPriceSer.searchById(id);
-    // if (temp == null)
-    // return Response.status(Response.Status.NOT_FOUND).build();
-    // boolean update = productPriceSer.add(productPrice);
-    // if (!update)
-    // return Response.status(Response.Status.NOT_FOUND).build();
-    // return Response.ok(productPrice).build();
-    // }
+//     @PUT()
+//     @Path("/{id}")
+//     @Consumes(MediaType.APPLICATION_JSON)
+//     @Produces(MediaType.APPLICATION_JSON)
+//     public Response update(@PathParam("id") long id, ProductPrice productPrice) {
+//     ProductPrice temp = productPriceSer.searchById(id);
+//         if (temp == null)
+//         return Response.status(Response.Status.NOT_FOUND).build();
+//         boolean update = productPriceSer.add(productPrice);
+//         if (!update)
+//         return Response.status(Response.Status.NOT_FOUND).build();
+//         return Response.ok(productPrice).build();
+//     }
 
 }

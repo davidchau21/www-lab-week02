@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.frontend.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.iuh.fit.backend.enums.ProductStatus;
@@ -31,17 +32,42 @@ public class ProductModel {
 
         Product product =new Product(name,desc,unit,manu, ProductStatus.valueOf(status));
         services.add(product);
+        // xu ly sau khi insert
         resp.sendRedirect("products.jsp");
     }
 
     public void deleteProduct(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         long id =Long.parseLong(req.getParameter("id"));
-        services.updateStatus(id, ProductStatus.IN_ACTIVE);
+        services.del(id);
         resp.sendRedirect("products.jsp");
     }
 
+    public void updateProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long id = Long.parseLong(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String desc = req.getParameter("desc");
+        String unit = req.getParameter("unit");
+        String manu = req.getParameter("manu");
+        String status = req.getParameter("status");
+
+        Product product = new Product(name, desc, unit, manu, ProductStatus.valueOf(status));
+
+        // Pass the entire product object to the updateField method
+        boolean updated = services.updateField(id, product);
+
+        // Check if the update was successful before redirecting
+        if (updated) {
+            resp.sendRedirect("products.jsp");
+        } else {
+            // Handle the case where the update failed
+            // You may want to redirect to an error page or log the error
+            resp.sendRedirect("error.jsp");
+        }
+    }
+
+
     public List<Product> getAll() throws IOException, InterruptedException {
-        String uri = "http://localhost:8080/lab_week02/api/Product";
+        String uri = "http://localhost:8080/lab_week02/products";
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .GET()
@@ -140,4 +166,31 @@ public class ProductModel {
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         return response.body().equals("true");
     }
+
+    public void getProductById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id = Long.parseLong(req.getParameter("id"));
+
+            // Retrieve the product by ID
+            Product product = services.searchById(id);
+
+            if (product != null) {
+                // Set the product as an attribute in the request
+                req.setAttribute("product", product);
+
+                // Forward to the editProduct.jsp for editing
+                req.getRequestDispatcher("editProduct.jsp").forward(req, resp);
+            } else {
+                // Handle the case where the product is not found
+                resp.sendRedirect("error.jsp");
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid long
+            resp.sendRedirect("error.jsp");
+        } catch (Exception e) {
+            // Handle other exceptions
+            throw new ServletException("Error getting product by ID", e);
+        }
+    }
+
 }

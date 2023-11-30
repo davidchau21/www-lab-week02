@@ -7,11 +7,14 @@ import java.util.Optional;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.edu.iuh.fit.backend.enums.EmployeeStatus;
 import vn.edu.iuh.fit.backend.models.Employee;
 
 public class EmployeeRepository {
     private EntityManager em = null;
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public EmployeeRepository() {
         this.em = DBConnect.getInstance().getEmf().createEntityManager();
@@ -23,10 +26,7 @@ public class EmployeeRepository {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
-            List<Employee> employees = em
-                    .createNativeQuery("select * from employee order by full_name where status = 2 or status = 1",
-                            Employee.class)
-                    .getResultList();
+            List<Employee> employees = em.createNativeQuery("select * from employees ",Employee.class).getResultList();
             tr.commit();
             return employees;
         } catch (Exception e) {
@@ -35,8 +35,29 @@ public class EmployeeRepository {
         return null;
     }
 
+    public List<Employee> getFromXToY(int x, int y){
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+
+            int from = y-x+1;
+            int to = x-1;
+
+            String sql = "SELECT * FROM employee ORDER BY full_name where status = 2 OR status = 1 LIMIT "+from +" OFFSET "+to;
+
+            List<Employee> list = em.createNativeQuery(sql, Employee.class).getResultList();
+
+            tr.commit();
+            return list;
+        } catch (Exception e){
+            logger.info(e.getMessage());
+            tr.rollback();
+        }
+        return null;
+    }
+
     // insert employee
-    public boolean insertEmployee(Employee employee) {
+    public boolean add(Employee employee) {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -44,6 +65,7 @@ public class EmployeeRepository {
             tr.commit();
             return true;
         } catch (Exception e) {
+            logger.info(e.getMessage());
             tr.rollback();
         }
         return false;
@@ -77,10 +99,13 @@ public class EmployeeRepository {
             tr.commit();
             return employee;
         } catch (Exception e) {
+            logger.info(e.getMessage());
             tr.rollback();
         }
         return null;
     }
+
+
 
     public boolean updateField(long id, String nameField, String newValue) {
         EntityTransaction tr = em.getTransaction();
@@ -118,6 +143,7 @@ public class EmployeeRepository {
             tr.commit();
             return true;
         } catch (Exception e) {
+            logger.info(e.getMessage());
             tr.rollback();
         }
         return false;
@@ -136,6 +162,7 @@ public class EmployeeRepository {
             tr.commit();
             return true;
         } catch (Exception e) {
+            logger.info(e.getMessage());
             tr.rollback();
         }
         return false;
