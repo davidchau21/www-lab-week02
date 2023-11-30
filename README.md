@@ -29,7 +29,7 @@
 > List
 ![ListCust](img/listCustomer.png)
 > Update
-![ListCust](img/updateCust.png)
+![ListCust](img/updateCus.png)
 > Insert
 ![ListCust](img/insertCust.png)
 
