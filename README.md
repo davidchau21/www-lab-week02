@@ -14,6 +14,25 @@
 **Class**
 ![Class](img/class.png)
 
+**Index**
+![index](img/index.png)
+**Product**
+> CRUD Product
+> List
+![ListPro](img/listProduct.png)
+> Update
+![ListPro](img/updateProduct.png)
+> Insert
+![ListPro](img/insertProduct.png)
+**Custome**
+> CRUD Customer
+> List
+![ListCust](img/listCustomer.png)
+> Update
+![ListCust](img/updateCust.png)
+> Insert
+![ListCust](img/insertCust.png)
+
 <details>
   <summary><h3>👇 Back end</h3> </summary>
   
@@ -29,7 +48,7 @@
   
   ## FRONT-END 
 - Tạo giao diện trang web bán hàng. <br>
-- Sử dụng: `Servlet Jakarta EE` <br>
+- Sử dụng: REST API `Servlet Jakarta EE` <br>
 - Mô tả:<br>
   - Chạy song song với phần backend ở trên để lấy dữ liệu <br>
 </details>
